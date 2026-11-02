@@ -27,6 +27,7 @@ function main() {
     let title = 'Andrew\'s Taxi Blog';
     let excerpt = '';
     let image = '/featured.jpeg';
+    let keywords = '';
 
     const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (match) {
@@ -36,6 +37,8 @@ function main() {
       if (eLine) excerpt = eLine[1].trim().replace(/^["']|["']$/g, '');
       const iLine = match[1].match(/^image:\s*(.+)$/m);
       if (iLine) image = iLine[1].trim().replace(/^["']|["']$/g, '');
+      const kLine = match[1].match(/^keywords:\s*(.+)$/m);
+      if (kLine) keywords = kLine[1].trim().replace(/^["']|["']$/g, '');
     }
 
     const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
@@ -44,6 +47,10 @@ function main() {
     // Replace title
     newHtml = newHtml.replace(/<title>(.*?)<\/title>/, `<title>${title} | Andrew's Taxi</title>`);
     newHtml = newHtml.replace(/<meta name="description" content="([^"]*)"\s*\/?>/, `<meta name="description" content="${excerpt}" />`);
+    if (keywords) {
+      newHtml = newHtml.replace(/<meta name="keywords" content="([^"]*)"\s*\/?>/, `<meta name="keywords" content="${keywords}" />`);
+    }
+
 
     // Replace OG tags
     newHtml = newHtml.replace(/<meta property="og:title" content="([^"]*)"\s*\/?>/, `<meta property="og:title" content="${title} | Andrew's Taxi" />`);

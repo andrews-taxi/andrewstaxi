@@ -16,6 +16,9 @@ export const BlogPost: React.FC = () => {
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) metaDesc.setAttribute('content', post.excerpt || '');
       
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (metaKeywords && post.keywords) metaKeywords.setAttribute('content', post.keywords);
+      
       const ogTitle = document.querySelector('meta[property="og:title"]');
       if (ogTitle) ogTitle.setAttribute('content', post.title || '');
       
@@ -49,6 +52,11 @@ export const BlogPost: React.FC = () => {
       </Link>
       <article>
         {post.image && <img src={post.image} alt={post.title} className="w-full h-auto rounded-xl shadow-md mb-8" />}
+        {post.category && (
+          <span className="inline-block bg-amber-100 text-amber-900 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+            {post.category}
+          </span>
+        )}
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <p className="text-gray-500 mb-8">{post.date}</p>
         <div className="prose prose-lg prose-amber max-w-none">
@@ -57,4 +65,5 @@ export const BlogPost: React.FC = () => {
       </article>
     </div>
   );
+
 };

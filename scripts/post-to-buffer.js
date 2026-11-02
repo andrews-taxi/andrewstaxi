@@ -101,20 +101,29 @@ async function main() {
     await waitForDeployment(postUrl);
   }
 
-  await postToChannel(token, {
-    channelId: CHANNELS.facebook,
-    label: 'Facebook',
-    text: `${title}\n\n${excerpt}\n\nRead more: ${postUrl}`,
-    imageUrl,
-    metadata: { facebook: { type: 'post' } },
-  });
+  const hashtags = process.env.POST_HASHTAGS || '';
+  const postText = hashtags 
+    ? `${title}\n\n${excerpt}\n\n${hashtags}\n\nRead more: ${postUrl}`
+    : `${title}\n\n${excerpt}\n\nRead more: ${postUrl}`;
 
+  // Facebook: deactivated per user instruction
+  // await postToChannel(token, {
+  //   channelId: CHANNELS.facebook,
+  //   label: 'Facebook',
+  //   text: postText,
+  //   imageUrl,
+  //   metadata: { facebook: { type: 'post' } },
+  // });
+
+  // Threads: active
   await postToChannel(token, {
     channelId: CHANNELS.threads,
     label: 'Threads',
-    text: `${title}\n\n${excerpt}\n\nRead more: ${postUrl}`,
+    text: postText,
     imageUrl,
   });
+
+
 }
 
 main().catch(e => console.error(e));
