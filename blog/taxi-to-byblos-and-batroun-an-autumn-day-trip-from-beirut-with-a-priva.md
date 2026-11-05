@@ -1,5 +1,5 @@
 ---
-image: "/images/taxi-to-byblos-and-batroun-an-autumn-day-trip-from-beirut-with-a-priva-4e6acf68.png"
+image: "/andrew-vehicle.jpeg"
 title: "Taxi to Byblos and Batroun: An Autumn Day Trip from Beirut with a Private Driver"
 date: "2026-10-16"
 excerpt: "October is a good month for the Lebanese coast. This guide covers a one-day route from Beirut to Byblos and Batroun, with a fixed-price taxi and a Lebanon private driver on call 24/7."

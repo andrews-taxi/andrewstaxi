@@ -10,15 +10,12 @@
 
 import fs from 'fs';
 import path from 'path';
-import crypto from 'crypto';
-import sharp from 'sharp';
 
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_VERSION = '2023-06-01';
 const BRAVE_URL = 'https://api.search.brave.com/res/v1/web/search';
 
 const POSTS_DIR = path.join(process.cwd(), 'blog');
-const IMAGES_DIR = path.join(process.cwd(), 'public', 'images');
 const CONSTANTS_FILE = path.join(process.cwd(), 'constants.ts');
 
 const SITE_URL = 'https://www.andrewstaxi.com';
@@ -951,68 +948,6 @@ We encountered an error while generating today's blog post: ${err.message}`,
   }
 }
 
-async function cloudflareImage(prompt) {
-  const accountId = process.env.CF_ACCOUNT_ID;
-  const token = process.env.CF_API_TOKEN;
-  const model = process.env.CF_IMAGE_MODEL || '@cf/black-forest-labs/flux-1-schnell';
-
-  if (!accountId || !token) {
-    throw new Error('Missing Cloudflare Secrets! CF_ACCOUNT_ID and CF_API_TOKEN must be set in GitHub Repository Secrets.');
-  }
-
-  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`, {
-    method: 'POST',
-    headers: { authorization: `Bearer ${token}` },
-    body: JSON.stringify({ prompt: prompt.slice(0, 2000) }),
-  });
-  if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`CF HTTP ${response.status}: ${errText}`);
-  }
-
-  const contentType = response.headers.get('content-type') || '';
-  if (contentType.includes('application/json')) {
-    const json = await response.json();
-    if (json.success === false) {
-      throw new Error(`CF AI Error: ${JSON.stringify(json.errors)}`);
-    }
-    const b64 = json.result?.image || json.result;
-    if (typeof b64 === 'string') {
-      return { buffer: Buffer.from(b64, 'base64'), extension: 'png' };
-    }
-    throw new Error('Unexpected CF JSON response format: ' + JSON.stringify(json).slice(0, 200));
-  }
-
-  return { buffer: Buffer.from(await response.arrayBuffer()), extension: 'png' };
-}
-
-function buildRealisticImagePrompt(pillar, title, excerpt) {
-  const combined = `${pillar?.name || ''} ${pillar?.id || ''} ${title || ''} ${excerpt || ''}`.toLowerCase();
-
-  // If about Beirut Airport or general city transit, NEVER generate fake airport/terminal architecture!
-  // Instead: pristine modern white taxi car with clean plain doors and Andrew's logo
-  if (combined.includes('airport') || combined.includes('hariri') || combined.includes('bey')) {
-    return 'Commercial automotive photography of a pristine modern white luxury sedan taxi with a classic taxi roof light, parked smoothly on a clean sunlit asphalt road in Lebanon. The car body and doors are completely smooth, solid paint with ABSOLUTELY NO NUMBERS, NO PHONE NUMBERS, NO DECALS, NO TEXT, NO WRITING, and a blank clean license plate. Shallow depth of field, natural daylight, photorealistic, 8k resolution. Zero CGI, no fake text, no watermark.';
-  }
-
-  // Real ancient open-air landmarks (only where AI can replicate authentic stone ruins without fake buildings)
-  if (combined.includes('baalbek') || combined.includes('jupiter') || combined.includes('bacchus')) {
-    return 'A super-realistic photograph at the ancient Roman ruins of Baalbek in Lebanon. The colossal towering golden sandstone Roman columns of the Temple of Jupiter and Temple of Bacchus under a clear blue sky. In the foreground along the access road, a modern clean sedan taxi is parked. The taxi car has a small yellow taxi roof sign, but the car body and doors are completely plain, clean solid paint with ABSOLUTELY NO NUMBERS, NO PHONE NUMBERS, NO DECALS, NO TEXT, blank clean license plate. Photorealistic 35mm documentary photography, natural daylight. Zero CGI, no fake text, no watermark.';
-  }
-
-  if (combined.includes('byblos') || combined.includes('jbeil')) {
-    return 'A super-realistic photograph at the historic ancient Phoenician stone harbor of Byblos (Jbeil) in Lebanon. The iconic medieval Crusader sea tower and ancient stone fortifications by calm turquoise Mediterranean waters with traditional fishing boats in the port. In the foreground along the coastal road, a modern clean sedan taxi is parked. The taxi car has a small yellow taxi roof sign, but the car body and doors are completely plain, clean solid paint with ABSOLUTELY NO NUMBERS, NO PHONE NUMBERS, NO DECALS, NO TEXT, blank clean license plate. Photorealistic 35mm documentary photography, sunny Mediterranean daylight. Zero CGI, no fake text, no watermark.';
-  }
-
-  if (combined.includes('faraya') || combined.includes('mzaar') || combined.includes('kfardebian') || combined.includes('ski')) {
-    return 'A super-realistic photograph at Faraya Mzaar in Mount Lebanon. An authentic Lebanese mountain road flanked by clean snowbanks with snow-capped Lebanese mountain peaks under crisp winter sunshine. A modern clean silver SUV taxi equipped for mountain roads is parked along the road. The car body and doors are completely plain, clean solid paint with ABSOLUTELY NO NUMBERS, NO PHONE NUMBERS, NO DECALS, NO TEXT, blank clean license plate. Photorealistic winter photography, 35mm lens. Zero CGI, no fake text, no watermark.';
-  }
-
-  // For office, school, work, taxi near me, pricing, and all other topics where buildings might look fake:
-  // Default strictly to a pristine modern taxi car with clean plain doors (zero numbers) ready for Andrew's logo!
-  return 'Commercial automotive photography of a pristine modern clean taxi car (sedan or SUV) parked smoothly on a clean sunlit asphalt road in Lebanon. The taxi car has a small yellow taxi roof sign, but the car body and doors are completely plain, clean solid paint with ABSOLUTELY NO NUMBERS, NO PHONE NUMBERS, NO DECALS, NO TEXT, NO WRITING, and a blank clean license plate. Shallow depth of field, elegant natural daylight, sharp focus, photorealistic, 8k resolution. Zero CGI, no fake text, no watermark.';
-}
-
 async function main() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) fail('ANTHROPIC_API_KEY missing');
@@ -1037,28 +972,7 @@ async function main() {
   }
   const slug = slugify(title) || 'taxi-post';
 
-  const imagePrompt = buildRealisticImagePrompt(pillar, title, excerpt);
-
-  let imagePath = '/featured.jpeg';
-  try {
-    const { buffer, extension } = await cloudflareImage(imagePrompt);
-    fs.mkdirSync(IMAGES_DIR, { recursive: true });
-
-    const logoPath = path.join(process.cwd(), 'public', 'logo-white.png');
-    const logoBuffer = await sharp(logoPath).resize({ width: 180 }).toBuffer();
-
-    const finalBuffer = await sharp(buffer)
-      .composite([{ input: logoBuffer, gravity: 'southeast' }])
-      .toBuffer();
-
-    const fileName = `${slug}-${crypto.randomBytes(4).toString('hex')}.${extension}`;
-    fs.writeFileSync(path.join(IMAGES_DIR, fileName), finalBuffer);
-    imagePath = `/images/${fileName}`;
-  } catch (e) {
-    log(`Image gen fallback to featured image: ${e.message}`);
-    imagePath = '/featured.jpeg';
-  }
-
+  const imagePath = '/andrew-vehicle.jpeg';
 
   const finalMd = markdown.replace(/^---([\s\S]*?)---/, `---\nimage: "${imagePath}"$1---`);
   fs.mkdirSync(POSTS_DIR, { recursive: true });

@@ -1,5 +1,5 @@
 ---
-image: ""
+image: "/andrew-vehicle.jpeg"
 title: "Byblos and Batroun Day Trip by Private Driver: An October Itinerary from Beirut"
 date: "2026-10-04"
 excerpt: "Plan an easy autumn day on the Lebanese coast. Take a taxi to Byblos, stop in Batroun for seafood and old souks, and return to Beirut at a fixed price with a private driver."

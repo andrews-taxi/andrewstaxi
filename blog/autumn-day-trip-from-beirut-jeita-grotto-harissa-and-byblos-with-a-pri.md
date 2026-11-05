@@ -1,5 +1,5 @@
 ---
-image: "/images/autumn-day-trip-from-beirut-jeita-grotto-harissa-and-byblos-with-a-pri-9d723296.png"
+image: "/andrew-vehicle.jpeg"
 title: "Autumn Day Trip from Beirut: Jeita Grotto, Harissa and Byblos with a Private Driver"
 date: "2026-10-05"
 excerpt: "October is a good month to see Jeita, Harissa and Byblos in one day. Here is how to plan the route with a Lebanon private driver and fixed pricing, 24/7."

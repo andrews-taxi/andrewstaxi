@@ -1,5 +1,5 @@
 ---
-image: "/images/autumn-day-trips-from-beirut-byblos-batroun-and-saida-with-a-private-d-5b29a659.png"
+image: "/andrew-vehicle.jpeg"
 title: "Autumn Day Trips from Beirut: Byblos, Batroun and Saida with a Private Driver"
 date: "2026-10-26"
 excerpt: "Late October is a good time for coastal day trips in Lebanon. Here is how to plan Byblos, Batroun and Saida with a fixed-price private driver, plus tips for airport arrivals."

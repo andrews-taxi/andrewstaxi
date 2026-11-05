@@ -1,5 +1,5 @@
 ---
-image: "/images/october-in-lebanon-5-day-trips-from-beirut-with-a-private-driver-92171e27.png"
+image: "/andrew-vehicle.jpeg"
 title: "October in Lebanon: 5 Day Trips from Beirut with a Private Driver"
 date: "2026-10-22"
 excerpt: "Cooler days make October a good month to explore Lebanon. Here are five day trips from Beirut, from Byblos to Baalbek, with a fixed-price private driver."

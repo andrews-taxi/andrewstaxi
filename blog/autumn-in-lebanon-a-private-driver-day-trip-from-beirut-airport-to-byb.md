@@ -1,5 +1,5 @@
 ---
-image: "/images/autumn-in-lebanon-a-private-driver-day-trip-from-beirut-airport-to-byb-32ea6e7c.png"
+image: "/andrew-vehicle.jpeg"
 title: "Autumn in Lebanon: A Private Driver Day Trip from Beirut Airport to Byblos and Batroun"
 date: "2026-10-07"
 excerpt: "October is a good month to see Lebanon's coast. Book a Beirut airport transfer, then take a taxi to Byblos and Batroun with a private driver, a fixed price and 24/7 service."

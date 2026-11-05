@@ -1,5 +1,5 @@
 ---
-image: "/images/taxi-to-byblos-and-batroun-the-perfect-october-day-trip-from-beirut-1ee8ce13.png"
+image: "/andrew-vehicle.jpeg"
 title: "Taxi to Byblos and Batroun: The Perfect October Day Trip from Beirut"
 date: "2026-10-14"
 excerpt: "Cooler October days are ideal for the Lebanese coast. Plan a day trip from Beirut to Byblos and Batroun with a private driver, a fixed price and 24/7 booking."

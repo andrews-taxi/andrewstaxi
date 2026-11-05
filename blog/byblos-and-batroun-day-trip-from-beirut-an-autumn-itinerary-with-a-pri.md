@@ -1,5 +1,5 @@
 ---
-image: "/images/byblos-and-batroun-day-trip-from-beirut-an-autumn-itinerary-with-a-pri-008e0f16.png"
+image: "/andrew-vehicle.jpeg"
 title: "Byblos and Batroun Day Trip from Beirut: An Autumn Itinerary with a Private Driver"
 date: "2026-10-09"
 excerpt: "Autumn is one of the best seasons to see Byblos and Batroun. Here is a simple day-trip plan from Beirut, with a Lebanon private driver, fixed pricing and 24/7 pickup."

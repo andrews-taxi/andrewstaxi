@@ -1,5 +1,5 @@
 ---
-image: ""
+image: "/andrew-vehicle.jpeg"
 title: "Autumn Day Trip from Beirut: Byblos and Batroun by Private Taxi"
 date: "2026-10-03"
 excerpt: "October is a good month to head up the coast. Here is a simple Beirut–Byblos–Batroun day plan, with a fixed-price taxi that runs 24/7 and takes the stress out of the drive."

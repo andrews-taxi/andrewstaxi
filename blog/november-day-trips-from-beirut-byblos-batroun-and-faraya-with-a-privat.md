@@ -1,5 +1,5 @@
 ---
-image: "/images/november-day-trips-from-beirut-byblos-batroun-and-faraya-with-a-privat-7a096578.png"
+image: "/andrew-vehicle.jpeg"
 title: "November Day Trips from Beirut: Byblos, Batroun and Faraya with a Private Driver"
 date: "2026-11-01"
 excerpt: "Autumn is one of the best times to see Lebanon. Plan a stress-free day trip from Beirut to Byblos, Batroun and Faraya with a fixed-price private driver, available 24/7."

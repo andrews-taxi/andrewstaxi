@@ -1,5 +1,5 @@
 ---
-image: "/images/student-taxi-beirut-safe-rides-to-aub-lau-usj-ndu-9b98e667.png"
+image: "/andrew-vehicle.jpeg"
 title: "Student Taxi Beirut: Safe Rides to AUB, LAU, USJ & NDU"
 date: "2026-11-05"
 excerpt: "Student taxi Beirut for AUB, LAU, USJ and NDU: punctual morning pickups, safe rides home after late study nights and monthly taxi plans. Book on WhatsApp."

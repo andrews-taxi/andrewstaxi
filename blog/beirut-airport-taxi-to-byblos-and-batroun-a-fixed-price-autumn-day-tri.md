@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-taxi-to-byblos-and-batroun-a-fixed-price-autumn-day-tri-70bf15c2.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Taxi to Byblos and Batroun: A Fixed-Price Autumn Day Trip"
 date: "2026-10-13"
 excerpt: "Landing in Beirut this October? Skip the fare haggling and head up the coast to Byblos and Batroun with a private driver. Fixed pricing, 24/7 pickup."

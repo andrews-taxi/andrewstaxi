@@ -1,5 +1,5 @@
 ---
-image: "/images/baalbek-and-zahle-day-trip-from-beirut-why-a-lebanon-private-driver-be-02ba0f6b.png"
+image: "/andrew-vehicle.jpeg"
 title: "Baalbek and Zahle Day Trip from Beirut: Why a Lebanon Private Driver Beats the Tour Bus"
 date: "2026-10-24"
 excerpt: "Plan an autumn day trip from Beirut to the Roman temples of Baalbek, a Zahle brunch and a Ksara winery visit. Andrews Taxi gives you a private driver, fixed pricing and 24/7 booking."

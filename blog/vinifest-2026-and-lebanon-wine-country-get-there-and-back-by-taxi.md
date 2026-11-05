@@ -1,5 +1,5 @@
 ---
-image: ""
+image: "/andrew-vehicle.jpeg"
 title: "Vinifest 2026 and Lebanon Wine Country: Get There and Back by Taxi"
 date: "2026-10-02"
 excerpt: "Vinifest returns for its 16th edition from 1 to 3 October 2026. Here is how to enjoy Lebanese wine, from Beirut tastings to Zahle and Batroun, without worrying about the drive home."

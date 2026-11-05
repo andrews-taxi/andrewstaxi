@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-taxi-fixed-fares-are-here-heres-how-to-book-a-price-you-effa9d69.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Taxi: Fixed Fares Are Here. Here's How to Book a Price You Can Trust"
 date: "2026-10-20"
 excerpt: "Official fixed taxi fares at Beirut airport have changed how travelers think about transfers. Here's how to arrive without haggling, and how to take a fixed-price day trip to Byblos and Batroun this autumn."

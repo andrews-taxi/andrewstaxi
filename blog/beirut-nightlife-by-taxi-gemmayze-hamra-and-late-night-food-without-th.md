@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-nightlife-by-taxi-gemmayze-hamra-and-late-night-food-without-th-964d5f7e.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Nightlife by Taxi: Gemmayze, Hamra and Late-Night Food, Without the Parking Stress"
 date: "2026-10-12"
 excerpt: "Plan a safe night out in Beirut. Here is where the nightlife is, why a fixed-price private taxi beats driving, and how to get home from Beirut, Byblos, Batroun or Jounieh at any hour."

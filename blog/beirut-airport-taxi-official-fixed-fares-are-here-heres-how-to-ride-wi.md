@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-taxi-official-fixed-fares-are-here-heres-how-to-ride-wi-f3b24c93.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Taxi: Official Fixed Fares Are Here. Here's How to Ride Without the Guesswork"
 date: "2026-10-29"
 excerpt: "Lebanon's Public Works Ministry has introduced a fixed taxi fare schedule at Beirut airport. Here is what it means for you, and how Andrews Taxi gives you a fixed price before you ride, 24/7."

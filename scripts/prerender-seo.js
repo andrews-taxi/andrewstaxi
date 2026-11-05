@@ -26,7 +26,7 @@ function main() {
 
     let title = 'Andrew\'s Taxi Blog';
     let excerpt = '';
-    let image = '/featured.jpeg';
+    let image = '/andrew-vehicle.jpeg';
     let keywords = '';
 
     const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);

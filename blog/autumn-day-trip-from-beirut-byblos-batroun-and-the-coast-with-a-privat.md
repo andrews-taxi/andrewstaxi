@@ -1,5 +1,5 @@
 ---
-image: "/images/autumn-day-trip-from-beirut-byblos-batroun-and-the-coast-with-a-privat-d24f59c4.png"
+image: "/andrew-vehicle.jpeg"
 title: "Autumn Day Trip from Beirut: Byblos, Batroun and the Coast with a Private Driver"
 date: "2026-10-06"
 excerpt: "October is one of the best months to see Byblos and Batroun. Here is a simple day-trip plan, with a taxi to Byblos and a Lebanon private driver at a fixed price, available 24/7."

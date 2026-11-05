@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-transfer-how-to-get-from-bey-to-your-destination-with-a-2cbaaddc.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Transfer: How to Get From BEY to Your Destination With a Fixed Price"
 date: "2026-10-30"
 excerpt: "Landing at Beirut airport? Here is how to skip the taxi-rank haggling, get a fixed price before you ride, and reach Beirut, Byblos, Jounieh or beyond with a private driver."

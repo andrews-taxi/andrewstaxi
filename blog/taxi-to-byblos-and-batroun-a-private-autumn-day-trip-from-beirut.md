@@ -1,5 +1,5 @@
 ---
-image: "/images/taxi-to-byblos-and-batroun-a-private-autumn-day-trip-from-beirut-0bd895c0.png"
+image: "/andrew-vehicle.jpeg"
 title: "Taxi to Byblos and Batroun: A Private Autumn Day Trip from Beirut"
 date: "2026-10-28"
 excerpt: "Plan a relaxed autumn day on the Lebanese coast. Visit Byblos' ancient port, then spend the evening in Batroun with a fixed-price private driver from Andrews Taxi."

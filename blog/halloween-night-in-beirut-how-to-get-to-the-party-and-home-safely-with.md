@@ -1,5 +1,5 @@
 ---
-image: "/images/halloween-night-in-beirut-how-to-get-to-the-party-and-home-safely-with-4210ac8a.png"
+image: "/andrew-vehicle.jpeg"
 title: "Halloween Night in Beirut: How to Get to the Party and Home Safely with Andrews Taxi"
 date: "2026-10-31"
 excerpt: "Going out for Halloween in Beirut, Zouk or Verdun? Book a fixed-price, 24/7 taxi from Andrews Taxi. You get a professional driver and no fare negotiation at 3 AM."

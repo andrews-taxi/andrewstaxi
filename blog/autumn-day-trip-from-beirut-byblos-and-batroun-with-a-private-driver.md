@@ -1,5 +1,5 @@
 ---
-image: "/images/autumn-day-trip-from-beirut-byblos-and-batroun-with-a-private-driver-2d8954c4.png"
+image: "/andrew-vehicle.jpeg"
 title: "Autumn Day Trip from Beirut: Byblos and Batroun with a Private Driver"
 date: "2026-10-27"
 excerpt: "Autumn is a quiet, comfortable time to see Byblos and Batroun. Here is a simple day-trip plan with a fixed-price taxi, and a few tips for checking conditions before you go."

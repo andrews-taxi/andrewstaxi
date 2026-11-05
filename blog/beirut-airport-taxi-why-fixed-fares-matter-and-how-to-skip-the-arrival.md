@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-taxi-why-fixed-fares-matter-and-how-to-skip-the-arrival-f1f70af5.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Taxi: Why Fixed Fares Matter and How to Skip the Arrivals Hall Haggling"
 date: "2026-10-06"
 excerpt: "Fixed taxi fares from Beirut airport are in the news. Here is how to book a Beirut airport transfer with a set price, a confirmed driver and 24/7 service to Beirut, Byblos, Jounieh and beyond."

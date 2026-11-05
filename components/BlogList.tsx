@@ -10,7 +10,7 @@ export const posts = Object.entries(postsRaw).map(([path, content]) => {
   let title = slug;
   let date = '';
   let excerpt = '';
-  let image = '';
+  let image = '/andrew-vehicle.jpeg';
   let keywords = '';
   let hashtags = '';
   let category = '';

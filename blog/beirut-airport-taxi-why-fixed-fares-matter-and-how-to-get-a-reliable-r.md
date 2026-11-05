@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-airport-taxi-why-fixed-fares-matter-and-how-to-get-a-reliable-r-4422604c.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut Airport Taxi: Why Fixed Fares Matter and How to Get a Reliable Ride from BEY"
 date: "2026-10-19"
 excerpt: "Fixed taxi fares at Beirut airport are in the news. Here is what to expect when you land, how to avoid fare disputes, and how to pre-book a Beirut airport transfer with Andrews Taxi."

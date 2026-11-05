@@ -6,7 +6,7 @@ export const PHONE_NUMBER_CLEAN = "9613301019";
 export const WHATSAPP_MESSAGE = "Hello Andrew's Taxi, I would like to book a ride.";
 export const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER_CLEAN}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 export const EMAIL = "andrewstaxilb@gmail.com";
-export const GOOGLE_MAPS_LINK = "https://share.google/1JkyUvwWTwvJ72SxR";
+export const GOOGLE_MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=XJMP%2BW36+Jounieh";
 export const GOOGLE_REVIEWS_LINK = "https://share.google/1JkyUvwWTwvJ72SxR"; // Using the provided share link
 export const FACEBOOK_LINK = "https://www.facebook.com/andrwesTaxi/";
 export const INSTAGRAM_LINK = "https://www.instagram.com/andrewtaxi6/";

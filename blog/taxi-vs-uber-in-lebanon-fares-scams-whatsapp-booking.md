@@ -1,5 +1,5 @@
 ---
-image: "/images/taxi-vs-uber-in-lebanon-fares-scams-whatsapp-booking-eda573c9.png"
+image: "/andrew-vehicle.jpeg"
 title: "Taxi vs Uber in Lebanon: Fares, Scams & WhatsApp Booking"
 date: "2026-11-04"
 excerpt: "How much is a taxi in Beirut? Compare taxi vs Uber in Lebanon, meter vs fixed price, avoid airport scams, and book a guaranteed ride on WhatsApp."

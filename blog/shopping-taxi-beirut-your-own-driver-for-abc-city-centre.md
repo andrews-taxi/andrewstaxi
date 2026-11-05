@@ -1,5 +1,5 @@
 ---
-image: "/images/shopping-taxi-beirut-your-own-driver-for-abc-city-centre-df66dc84.png"
+image: "/andrew-vehicle.jpeg"
 title: "Shopping Taxi Beirut: Your Own Driver for ABC & City Centre"
 date: "2026-11-03"
 excerpt: "Need a shopping taxi in Beirut for ABC Achrafieh, ABC Dbayeh, City Centre Hazmieh or Beirut Souks? Book a chauffeur for day errands, skip parking, and load bags easily."

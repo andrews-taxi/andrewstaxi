@@ -1,5 +1,5 @@
 ---
-image: "/images/beirut-after-dark-an-autumn-night-out-guide-and-how-to-get-home-safely-385d5e25.png"
+image: "/andrew-vehicle.jpeg"
 title: "Beirut After Dark: An Autumn Night-Out Guide (and How to Get Home Safely)"
 date: "2026-10-18"
 excerpt: "Plan an autumn night out in Beirut, from Mar Mikhael bars to late-night manoushe in Hamra. Book a fixed-price Andrews Taxi for the ride there and the ride home, 24/7."

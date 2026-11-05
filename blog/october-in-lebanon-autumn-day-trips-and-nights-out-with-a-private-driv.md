@@ -1,5 +1,5 @@
 ---
-image: "/images/october-in-lebanon-autumn-day-trips-and-nights-out-with-a-private-driv-704d5501.png"
+image: "/andrew-vehicle.jpeg"
 title: "October in Lebanon: Autumn Day Trips and Nights Out With a Private Driver"
 date: "2026-10-10"
 excerpt: "Cooler weather makes October a good month to see Byblos, Batroun, Faraya and Baalbek, then enjoy a Beirut night out. Here is how to plan it with a Lebanon private driver and fixed-price taxi service."
