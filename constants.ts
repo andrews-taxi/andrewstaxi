@@ -21,21 +21,21 @@ export const INSTAGRAM_LINK = "https://www.instagram.com/andrewtaxi6/";
 export const OTHER_ZONE_ID = 'other';
 
 export const ZONES: Zone[] = [
-  { id: 'bey-airport',    label: 'Beirut Airport (BEY)',                   group: 'Beirut' },
-  { id: 'beirut-central', label: 'Beirut – Downtown / Achrafieh',          group: 'Beirut' },
-  { id: 'beirut-west',    label: 'Beirut – Hamra / Verdun / Ras Beirut',   group: 'Beirut' },
-  { id: 'beirut-south',   label: 'Beirut – Chiyah / Ouzai / Bourj Brajneh', group: 'Beirut' },
-  { id: 'beirut-suburbs', label: 'Hazmieh / Baabda / Dekwaneh / Jdeideh',  group: 'Beirut' },
-  { id: 'jounieh',        label: 'Jounieh / Kaslik / Zouk',                group: 'Mount Lebanon' },
-  { id: 'faraya',         label: 'Faraya / Kfardebian',                    group: 'Mount Lebanon' },
-  { id: 'byblos',         label: 'Byblos (Jbeil)',                         group: 'North Coast' },
-  { id: 'batroun',        label: 'Batroun',                                group: 'North Coast' },
-  { id: 'tripoli',        label: 'Tripoli',                                group: 'North Coast' },
-  { id: 'zahle',          label: 'Zahle',                                  group: 'Bekaa' },
-  { id: 'baalbek',        label: 'Baalbek',                                group: 'Bekaa' },
-  { id: 'saida',          label: 'Saida (Sidon)',                          group: 'South' },
-  { id: 'tyre',           label: 'Tyre (Sour)',                            group: 'South' },
-  { id: OTHER_ZONE_ID,    label: 'Other / not listed',                     group: 'Other' },
+  { id: 'bey-airport', label: 'Beirut Airport (BEY)', group: 'Beirut' },
+  { id: 'beirut-central', label: 'Beirut – Downtown / Achrafieh', group: 'Beirut' },
+  { id: 'beirut-west', label: 'Beirut – Hamra / Verdun / Ras Beirut', group: 'Beirut' },
+  { id: 'beirut-south', label: 'Beirut – Chiyah / Ouzai / Bourj Brajneh', group: 'Beirut' },
+  { id: 'beirut-suburbs', label: 'Hazmieh / Baabda / Dekwaneh / Jdeideh', group: 'Beirut' },
+  { id: 'jounieh', label: 'Jounieh / Kaslik / Zouk', group: 'Mount Lebanon' },
+  { id: 'faraya', label: 'Faraya / Kfardebian', group: 'Mount Lebanon' },
+  { id: 'byblos', label: 'Byblos (Jbeil)', group: 'North Coast' },
+  { id: 'batroun', label: 'Batroun', group: 'North Coast' },
+  { id: 'tripoli', label: 'Tripoli', group: 'North Coast' },
+  { id: 'zahle', label: 'Zahle', group: 'Bekaa' },
+  { id: 'baalbek', label: 'Baalbek', group: 'Bekaa' },
+  { id: 'saida', label: 'Saida (Sidon)', group: 'South' },
+  { id: 'tyre', label: 'Tyre (Sour)', group: 'South' },
+  { id: OTHER_ZONE_ID, label: 'Other / not listed', group: 'Other' },
 ];
 
 export const FARE_RULES = {
