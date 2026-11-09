@@ -1,6 +1,6 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Instagram, Map } from 'lucide-react';
-import { PHONE_NUMBER, EMAIL, GOOGLE_MAPS_LINK, FACEBOOK_LINK, INSTAGRAM_LINK, WHATSAPP_LINK } from '../constants';
+import { PHONE_NUMBER, SECONDARY_PHONE_NUMBER, EMAIL, GOOGLE_MAPS_LINK, FACEBOOK_LINK, INSTAGRAM_LINK, WHATSAPP_LINK, SECONDARY_WHATSAPP_LINK } from '../constants';
 import { Logo } from './Logo';
 
 export const Footer: React.FC = () => {
@@ -47,19 +47,27 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-white font-semibold text-lg mb-6">Contact Us</h3>
             <ul className="space-y-4">
-              <li>
-                <a
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-start gap-3 hover:text-white transition-colors group text-left"
-                >
-                  <Phone className="w-5 h-5 text-taxi-yellow mt-1 group-hover:scale-110 transition-transform" />
-                  <span>
-                    <span className="block text-white font-medium">Book on WhatsApp</span>
+              <li className="w-full flex items-start gap-3 group text-left">
+                <Phone className="w-5 h-5 text-taxi-yellow mt-1 group-hover:scale-110 transition-transform" />
+                <div className="flex flex-col">
+                  <span className="block text-white font-medium">Book on WhatsApp</span>
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
                     {PHONE_NUMBER}
-                  </span>
-                </a>
+                  </a>
+                  <a
+                    href={SECONDARY_WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    {SECONDARY_PHONE_NUMBER}
+                  </a>
+                </div>
               </li>
               <li>
                 <a href={`mailto:${EMAIL}`} className="flex items-start gap-3 hover:text-white transition-colors group">
