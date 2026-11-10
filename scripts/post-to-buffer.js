@@ -126,5 +126,4 @@ async function main() {
 
 }
 
-// PAUSED: Commented out while daily blog generation is paused
-// main().catch(e => console.error(e));
+main().catch(e => console.error(e));

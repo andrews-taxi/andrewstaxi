@@ -1013,11 +1013,11 @@ async function main() {
 
 export { TOPIC_PILLARS, getRecentPostHistory, selectTopicPillar };
 
-// PAUSED: Commented out to stop daily blog post generation and Claude API token usage
-// import { fileURLToPath } from 'url';
-// const isMain = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
-// if (isMain) {
-//   main().catch(e => fail(e.stack || e.message));
-// }
+// Run main if executed directly via CLI
+import { fileURLToPath } from 'url';
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (isMain) {
+  main().catch(e => fail(e.stack || e.message));
+}
 
 
