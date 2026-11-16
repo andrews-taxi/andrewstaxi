@@ -52,3 +52,15 @@ export interface RouteRow {
 export type FareQuote =
   | { status: 'fixed'; price: number; tripType: TripType }
   | { status: 'on-request'; reason: 'incomplete' | 'other-zone' | 'unlisted-pair' };
+
+export interface LocationPoint {
+  title: string;
+  lat: number;
+  lng: number;
+}
+
+export interface CarTypeOption {
+  id: string;
+  label: string;
+  capacity: string;
+}

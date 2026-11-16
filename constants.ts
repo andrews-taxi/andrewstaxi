@@ -43,6 +43,7 @@ export const ZONES: Zone[] = [
 
 export const FARE_RULES = {
   CURRENCY_SYMBOL: '$',
+  RATE_PER_KM_USD: 1.1,      // distance rate per kilometer
   MIN_FARE_USD: 6,           // no ride is quoted below this
   ROUND_TRIP_MULTIPLIER: 2,  // return trip = one-way x 2 unless a roundTrip price is given
   FREE_WAIT_MINUTES: 50,
@@ -53,6 +54,12 @@ export const FARE_RULES = {
   // true  -> the website says "Fixed Price"
   PRICES_CONFIRMED: false,
 };
+
+export const CAR_TYPES = [
+  { id: 'sedan', label: 'Sedan', capacity: '1–4 passengers' },
+  { id: 'suv', label: 'SUV', capacity: '1–4 passengers + extra luggage' },
+  { id: 'minivan', label: 'Minivan / Van', capacity: '5–7 passengers' },
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  PRICE LIST — HOW TO EDIT (no coding knowledge needed)
