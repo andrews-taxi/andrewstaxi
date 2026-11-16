@@ -7,8 +7,6 @@ import {
   RefreshCw,
   Calendar,
   User,
-  Phone,
-  Car,
   LocateFixed,
   Loader2,
   CheckCircle2,
@@ -17,9 +15,9 @@ import {
   Clock,
   ArrowLeftRight,
 } from 'lucide-react';
-import { PHONE_NUMBER_CLEAN, FARE_RULES, CAR_TYPES } from '../constants';
+import { SECONDARY_PHONE_NUMBER_CLEAN, FARE_RULES } from '../constants';
 import { formatPrice } from '../pricing';
-import type { LocationPoint, TripType } from '../types';
+import type { LocationPoint } from '../types';
 import {
   loadGoogleMaps,
   getCurrentBrowserPosition,
@@ -33,10 +31,9 @@ import {
 type PinTarget = 'pickup' | 'dropoff';
 
 interface RouteEstimate {
-  oneWayKm: number;
-  billedKm: number;
+  distanceKm: number;
+  extraKm: number;
   durationMinutes: number | null;
-  rawFareUsd: number;
   finalFareUsd: number;
   minFareApplied: boolean;
   path: Array<{ lat: number; lng: number }>;
@@ -279,13 +276,10 @@ const LocationField: React.FC<LocationFieldProps> = ({
 
 export const FareEstimator: React.FC = () => {
   const [clientName, setClientName] = useState('');
-  const [clientPhone, setClientPhone] = useState('');
   const [pickupText, setPickupText] = useState('');
   const [pickupPoint, setPickupPoint] = useState<LocationPoint | null>(null);
   const [dropoffText, setDropoffText] = useState('');
   const [dropoffPoint, setDropoffPoint] = useState<LocationPoint | null>(null);
-  const [carTypeId, setCarTypeId] = useState(CAR_TYPES[0].id);
-  const [tripType, setTripType] = useState<TripType>('one-way');
   const [pickupDate, setPickupDate] = useState(() => formatDateLocal(new Date()));
   const [pickupTime, setPickupTime] = useState('');
   const [selectedSchedulePreset, setSelectedSchedulePreset] = useState<string | null>(null);
@@ -528,21 +522,12 @@ export const FareEstimator: React.FC = () => {
       errors.clientName = 'Client name is required.';
     }
 
-    const digitsOnly = clientPhone.replace(/\D/g, '');
-    if (!clientPhone.trim() || digitsOnly.length < 6) {
-      errors.clientPhone = 'Valid phone number is required.';
-    }
-
     if (!pickupPoint) {
       errors.pickup = 'Please select a pickup point using search, Locate Me, or the map pin.';
     }
 
     if (!dropoffPoint) {
       errors.dropoff = 'Please select a drop-off point using search, Locate Me, or the map pin.';
-    }
-
-    if (!carTypeId) {
-      errors.carType = 'Please choose a car type.';
     }
 
     if (!pickupDate || !pickupTime) {
@@ -564,18 +549,16 @@ export const FareEstimator: React.FC = () => {
     setIsCalculating(true);
     try {
       const route = await calculateDrivingRoute(pickupPoint, dropoffPoint);
-      const multiplier = tripType === 'round-trip' ? FARE_RULES.ROUND_TRIP_MULTIPLIER : 1;
-      const billedKm = Math.round(route.distanceKm * multiplier * 10) / 10;
-      const rawFareUsd = Math.round(billedKm * FARE_RULES.RATE_PER_KM_USD * 100) / 100;
-      const finalFareUsd = Math.max(rawFareUsd, FARE_RULES.MIN_FARE_USD);
+      const distanceKm = route.distanceKm;
+      const extraKm = Math.max(0, Math.round((distanceKm - FARE_RULES.BASE_DISTANCE_KM) * 10) / 10);
+      const finalFareUsd = Math.round((FARE_RULES.MIN_FARE_USD + extraKm * FARE_RULES.EXTRA_KM_RATE_USD) * 100) / 100;
 
       setEstimate({
-        oneWayKm: route.distanceKm,
-        billedKm,
+        distanceKm,
+        extraKm,
         durationMinutes: route.durationMinutes,
-        rawFareUsd,
         finalFareUsd,
-        minFareApplied: rawFareUsd < FARE_RULES.MIN_FARE_USD,
+        minFareApplied: distanceKm <= FARE_RULES.BASE_DISTANCE_KM,
         path: route.path,
       });
     } catch (err) {
@@ -586,23 +569,17 @@ export const FareEstimator: React.FC = () => {
     }
   };
 
-  const selectedCar = CAR_TYPES.find((c) => c.id === carTypeId) || CAR_TYPES[0];
-
   const buildWhatsAppBookingMessage = (): string => {
     if (!pickupPoint || !dropoffPoint) return '';
 
     const pickupLink = buildGoogleMapsPinUrl(pickupPoint.lat, pickupPoint.lng);
     const dropoffLink = buildGoogleMapsPinUrl(dropoffPoint.lat, dropoffPoint.lng);
-    const tripLabel = tripType === 'round-trip' ? 'Round Trip' : 'One-way';
     const formattedWhen = formatDisplayDateTime(pickupDate, pickupTime);
 
     const lines = [
       '*NEW TAXI BOOKING REQUEST*',
       '',
       `👤 *Client Name:* ${clientName.trim()}`,
-      `📞 *Phone:* ${clientPhone.trim()}`,
-      `🚗 *Car Type:* ${selectedCar.label} (${selectedCar.capacity})`,
-      `🔄 *Trip Type:* ${tripLabel}`,
       `📅 *Date & Time:* ${formattedWhen}`,
       '',
       `📍 *Pickup — ${pickupPoint.title}:*`,
@@ -614,9 +591,8 @@ export const FareEstimator: React.FC = () => {
     ];
 
     if (estimate) {
-      lines.push(`📏 *Distance:* ${estimate.billedKm} km${tripType === 'round-trip' ? ` (${estimate.oneWayKm} km each way)` : ''}`);
-      lines.push(`💵 *Rate:* ${formatPrice(FARE_RULES.RATE_PER_KM_USD)} / km`);
-      lines.push(`💰 *Estimated Fare:* ${formatPrice(estimate.finalFareUsd)}${estimate.minFareApplied ? ' (Minimum fare)' : ''}`);
+      lines.push(`📏 *Distance:* ${estimate.distanceKm} km`);
+      lines.push(`💰 *Estimated Fare:* ${formatPrice(estimate.finalFareUsd)}${estimate.minFareApplied ? ' (Minimum charge)' : ''}`);
     } else {
       lines.push('💰 *Estimated Fare:* Price on request (distance unavailable)');
     }
@@ -632,7 +608,7 @@ export const FareEstimator: React.FC = () => {
   const handleBookWhatsApp = () => {
     if (!validateForm() || !pickupPoint || !dropoffPoint) return;
     const message = buildWhatsAppBookingMessage();
-    window.open(`https://wa.me/${PHONE_NUMBER_CLEAN}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/${SECONDARY_PHONE_NUMBER_CLEAN}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleReset = () => {
@@ -670,68 +646,38 @@ export const FareEstimator: React.FC = () => {
           </div>
           <h2 className="text-3xl font-extrabold text-gray-900">Estimate Your Fare & Book</h2>
           <p className="mt-2 text-gray-600">
-            Pin your exact Pickup & Drop-off locations to calculate distance at{' '}
-            <span className="font-semibold text-gray-900">{formatPrice(FARE_RULES.RATE_PER_KM_USD)}/km</span> and send your booking to WhatsApp.
+            Pin your exact Pickup & Drop-off locations to calculate distance and send your booking directly on WhatsApp.
           </p>
         </div>
 
         <form onSubmit={handleCalculateFare} noValidate className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
           <div className="p-6 md:p-8 space-y-6">
-            {/* Client Contact Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="client-name" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Client Name <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="client-name"
-                    type="text"
-                    required
-                    value={clientName}
-                    onChange={(e) => { setClientName(e.target.value); clearError('clientName'); }}
-                    placeholder="Enter your full name"
-                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-taxi-yellow focus:border-taxi-yellow text-sm ${
-                      fieldErrors.clientName ? 'border-red-400 bg-red-50/40' : 'border-gray-300'
-                    }`}
-                  />
+            {/* Client Name */}
+            <div>
+              <label htmlFor="client-name" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Client Name <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <User className="h-5 w-5 text-gray-400" />
                 </div>
-                {fieldErrors.clientName && (
-                  <p className="mt-1.5 text-xs font-medium text-red-600 flex items-center gap-1">
-                    <AlertCircle className="w-3.5 h-3.5" /> {fieldErrors.clientName}
-                  </p>
-                )}
+                <input
+                  id="client-name"
+                  type="text"
+                  required
+                  value={clientName}
+                  onChange={(e) => { setClientName(e.target.value); clearError('clientName'); }}
+                  placeholder="Enter your full name"
+                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-taxi-yellow focus:border-taxi-yellow text-sm ${
+                    fieldErrors.clientName ? 'border-red-400 bg-red-50/40' : 'border-gray-300'
+                  }`}
+                />
               </div>
-
-              <div>
-                <label htmlFor="client-phone" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Phone Number <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="client-phone"
-                    type="tel"
-                    required
-                    value={clientPhone}
-                    onChange={(e) => { setClientPhone(e.target.value); clearError('clientPhone'); }}
-                    placeholder="+961 3 123 456"
-                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-taxi-yellow focus:border-taxi-yellow text-sm ${
-                      fieldErrors.clientPhone ? 'border-red-400 bg-red-50/40' : 'border-gray-300'
-                    }`}
-                  />
-                </div>
-                {fieldErrors.clientPhone && (
-                  <p className="mt-1.5 text-xs font-medium text-red-600 flex items-center gap-1">
-                    <AlertCircle className="w-3.5 h-3.5" /> {fieldErrors.clientPhone}
-                  </p>
-                )}
-              </div>
+              {fieldErrors.clientName && (
+                <p className="mt-1.5 text-xs font-medium text-red-600 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5" /> {fieldErrors.clientName}
+                </p>
+              )}
             </div>
 
             {/* Pickup & Drop-off Locations */}
@@ -844,66 +790,8 @@ export const FareEstimator: React.FC = () => {
               )}
             </div>
 
-            {/* Car Type & Trip Type */}
-            <div className="space-y-5 pt-2 border-t border-gray-100">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                <div className="lg:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Choose Car Type <span className="text-red-500">*</span>
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {CAR_TYPES.map((car) => {
-                      const isSelected = carTypeId === car.id;
-                      return (
-                        <button
-                          key={car.id}
-                          type="button"
-                          onClick={() => { setCarTypeId(car.id); clearError('carType'); }}
-                          className={`text-left p-3.5 rounded-xl border-2 transition-all flex items-start gap-3 ${
-                            isSelected
-                              ? 'border-taxi-yellow bg-amber-50/70 shadow-sm'
-                              : 'border-gray-200 hover:border-gray-300 bg-white'
-                          }`}
-                        >
-                          <div className={`p-2 rounded-lg flex-shrink-0 ${isSelected ? 'bg-taxi-yellow text-taxi-dark' : 'bg-gray-100 text-gray-500'}`}>
-                            <Car className="w-4 h-4" />
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-sm font-bold text-gray-900">{car.label}</p>
-                            <p className="text-xs text-gray-500 leading-snug mt-0.5">{car.capacity}</p>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Trip Type</label>
-                  <div className="flex bg-gray-100 p-1.5 rounded-xl">
-                    <button
-                      type="button"
-                      onClick={() => { setTripType('one-way'); setEstimate(null); }}
-                      className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${
-                        tripType === 'one-way' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      One-way
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { setTripType('round-trip'); setEstimate(null); }}
-                      className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${
-                        tripType === 'round-trip' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      Round Trip
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Spacious Date & Time Picker */}
+            {/* Spacious Date & Time Picker */}
+            <div className="pt-2 border-t border-gray-100">
               <div className="bg-gray-50/80 border border-gray-200 rounded-xl p-4 sm:p-5">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <label className="text-sm font-semibold text-gray-800 flex items-center gap-2">
@@ -1067,18 +955,10 @@ export const FareEstimator: React.FC = () => {
             ) : (
               <div className="animate-fade-in-up">
                 <div className="bg-taxi-dark text-white rounded-xl p-6 mb-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-5 border-b border-gray-800">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-5 border-b border-gray-800 items-center">
                     <div>
                       <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Total Distance</p>
-                      <p className="text-3xl font-extrabold text-white mt-1">{estimate.billedKm} km</p>
-                      {tripType === 'round-trip' && (
-                        <p className="text-xs text-gray-400 mt-0.5">{estimate.oneWayKm} km each way</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Rate</p>
-                      <p className="text-xl font-bold text-gray-200 mt-1">{formatPrice(FARE_RULES.RATE_PER_KM_USD)} / km</p>
+                      <p className="text-3xl font-extrabold text-white mt-1">{estimate.distanceKm} km</p>
                       {estimate.durationMinutes && (
                         <p className="text-xs text-gray-400 mt-1 inline-flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5 text-taxi-yellow" /> ~{estimate.durationMinutes} min drive
@@ -1089,10 +969,10 @@ export const FareEstimator: React.FC = () => {
                     <div className="sm:text-right">
                       <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Estimated Fare</p>
                       <p className="text-4xl font-extrabold text-taxi-yellow mt-1">{formatPrice(estimate.finalFareUsd)}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">
+                      <p className="text-xs text-gray-400 mt-1">
                         {estimate.minFareApplied
-                          ? `Minimum fare ${formatPrice(FARE_RULES.MIN_FARE_USD)} applies`
-                          : `${estimate.billedKm} km × ${formatPrice(FARE_RULES.RATE_PER_KM_USD)}`}
+                          ? `Minimum charge ${formatPrice(FARE_RULES.MIN_FARE_USD)} (up to ${FARE_RULES.BASE_DISTANCE_KM} km)`
+                          : `${formatPrice(FARE_RULES.MIN_FARE_USD)} (first ${FARE_RULES.BASE_DISTANCE_KM} km) + ${estimate.extraKm} extra km × ${formatPrice(FARE_RULES.EXTRA_KM_RATE_USD)}`}
                       </p>
                     </div>
                   </div>
@@ -1149,7 +1029,7 @@ export const FareEstimator: React.FC = () => {
         </form>
 
         <p className="text-center text-xs text-gray-500 mt-6">
-          *Distance is calculated via Google Maps driving route at {formatPrice(FARE_RULES.RATE_PER_KM_USD)}/km (minimum fare {formatPrice(FARE_RULES.MIN_FARE_USD)}). Final confirmation is sent on WhatsApp.
+          *Minimum charge is {formatPrice(FARE_RULES.MIN_FARE_USD)} for trips up to {FARE_RULES.BASE_DISTANCE_KM} km, plus {formatPrice(FARE_RULES.EXTRA_KM_RATE_USD)} per extra km. Final confirmation is sent on WhatsApp.
         </p>
       </div>
     </section>

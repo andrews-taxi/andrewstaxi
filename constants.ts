@@ -43,8 +43,9 @@ export const ZONES: Zone[] = [
 
 export const FARE_RULES = {
   CURRENCY_SYMBOL: '$',
-  RATE_PER_KM_USD: 1.1,      // distance rate per kilometer
-  MIN_FARE_USD: 6,           // no ride is quoted below this
+  BASE_DISTANCE_KM: 6,       // first 6 km covered by minimum charge
+  MIN_FARE_USD: 7,           // minimum charge up to 6 km ($7)
+  EXTRA_KM_RATE_USD: 1.2,    // each extra km above 6 km ($1.20/km)
   ROUND_TRIP_MULTIPLIER: 2,  // return trip = one-way x 2 unless a roundTrip price is given
   FREE_WAIT_MINUTES: 50,
   MAX_WAIT_HOURS: 4,
