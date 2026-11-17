@@ -15,7 +15,7 @@ import {
   Clock,
   ArrowLeftRight,
 } from 'lucide-react';
-import { SECONDARY_PHONE_NUMBER_CLEAN, FARE_RULES } from '../constants';
+import { PHONE_NUMBER_CLEAN, FARE_RULES } from '../constants';
 import { formatPrice } from '../pricing';
 import type { LocationPoint } from '../types';
 import {
@@ -608,7 +608,7 @@ export const FareEstimator: React.FC = () => {
   const handleBookWhatsApp = () => {
     if (!validateForm() || !pickupPoint || !dropoffPoint) return;
     const message = buildWhatsAppBookingMessage();
-    window.open(`https://wa.me/${SECONDARY_PHONE_NUMBER_CLEAN}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/${PHONE_NUMBER_CLEAN}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleReset = () => {
